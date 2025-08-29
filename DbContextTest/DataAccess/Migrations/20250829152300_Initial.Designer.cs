@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Capzlog.Mobile.DataAccess.DataSyncHistory.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220421172755_Initial")]
+    [Migration("20250829152300_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

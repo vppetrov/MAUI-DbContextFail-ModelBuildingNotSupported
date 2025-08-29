@@ -3,13 +3,12 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using DbContextTest.DataAccess;
 using DbContextTest.DataAccess.Entities;
-using DbContextTest.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Controls;
 
 namespace DbContextTest
 {
-    public partial class MainPage : ContentPage, IMyLogger
+    public partial class MainPage : ContentPage
     {
 	    private readonly ObservableCollection<string> _logs = new();
         
@@ -25,11 +24,13 @@ namespace DbContextTest
         {
 	        try
 	        {
-		        var context = new MyDbContext(this);
+		        var context = new MyDbContext();
 
-		        await context.RunMigrationsAsync(CancellationToken.None);
+				Log($"Async running migrations");
+				await context.Database.MigrateAsync(CancellationToken.None);
+				Log($"Successfully completed async migrations");
 
-		        var myEntity = new MyEntity();
+				var myEntity = new MyEntity();
 		        context.MyEntities.Add(myEntity);
 		        await context.SaveChangesAsync(CancellationToken.None);
 
