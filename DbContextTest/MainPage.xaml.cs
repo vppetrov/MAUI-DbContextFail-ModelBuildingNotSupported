@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading;
-using DbContextTest.DataAccess;
-using DbContextTest.DataAccess.Entities;
+using DataAccess;
+using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
 
 namespace DbContextTest
 {
@@ -24,7 +25,7 @@ namespace DbContextTest
         {
 	        try
 	        {
-		        var context = new MyDbContext();
+		        var context = new MyDbContext(FileSystem.AppDataDirectory);
 
 				Log($"Async running migrations");
 				await context.Database.MigrateAsync(CancellationToken.None);
